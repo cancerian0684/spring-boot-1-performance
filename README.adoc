@@ -1,0 +1,27 @@
+= spring-boot-1-performance
+
+Spring Boot 1.5.14 Performance Metrics with a simple ping controller without any business logic.
+
+./src/main/java/StatusController.java
+[source, java]
+----
+@RestController
+@RequestMapping("/api")
+public class StatusController {
+
+    @GetMapping("/perf")
+    public Status helloController() {
+        return new Status("ok");
+    }
+}
+----
+
+== wrk tool for benchmarking
+
+ wrk -t4 -c40 --timeout 10 http://localhost:8080/api/perf
+
+== Benchmarking Results
+On my local machine, i got 21k requests per second
+
+.Benchmarking Results
+image::https://s3.shunyafoundation.com/s3/e02c50bf098c0fc8a88f7ead845977374b7f0114/spring-boot-1x-performance.png[]
